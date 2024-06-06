@@ -89,50 +89,50 @@ router.get('/', jwtAuthMiddleware, async(req, res) => {
         });
     }
 });
-// router.get('/:workType', async(req, res) => {
-//     try {
-//         const workType = req.params.workType;
-//         if (workType === 'chef' || workType === 'waiter' || workType === 'manager') {
-//             const response = await user.find({ work: workType });
-//             console.log("data fetched successfully");
-//             res.status(200).json(response);
-//         } else {
-//             res.status(404).json({ error: 'Invalid work Type' });
-//         }
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({ error: "Internal server error" });
-//     }
-// });
-// router.put('/profile/password', jwtAuthMiddleware, async(req, res) => {
-//     try {
-//         const userID = req.user;
-//         const { currentPasssword, newPassword } = req.body;
-//         // find the user by userid
-//         const user = await user.findById(userId);
-//         //if  password does not match , return error
-//         if (!(await user.comparePassword(currentPasssword))) {
-//             return res.status(401).json({ error: 'Invalid username and password' });
-//         }
-//         //update the user password
-//         user.password = newPassword;
-//         awaituser.save();
-//         console.log('password updated');
-//         res.status(200).json({ message: 'password uppdated' });
+router.get('/:workType', async(req, res) => {
+    try {
+        const workType = req.params.workType;
+        if (workType === 'chef' || workType === 'waiter' || workType === 'manager') {
+            const response = await user.find({ work: workType });
+            console.log("data fetched successfully");
+            res.status(200).json(response);
+        } else {
+            res.status(404).json({ error: 'Invalid work Type' });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+router.put('/profile/password', jwtAuthMiddleware, async(req, res) => {
+    try {
+        const userID = req.user;
+        const { currentPasssword, newPassword } = req.body;
+        // find the user by userid
+        const user = await user.findById(userId);
+        //if  password does not match , return error
+        if (!(await user.comparePassword(currentPasssword))) {
+            return res.status(401).json({ error: 'Invalid username and password' });
+        }
+        //update the user password
+        user.password = newPassword;
+        awaituser.save();
+        console.log('password updated');
+        res.status(200).json({ message: 'password uppdated' });
 
-//         if (!response) {
-//             res.status(404).json({ error: 'user not found' });
-//         }
-//         console.log('user updated successfully');
-//         res.status(200).json(response);
+        if (!response) {
+            res.status(404).json({ error: 'user not found' });
+        }
+        console.log('user updated successfully');
+        res.status(200).json(response);
 
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({ error: "Internal server error" });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Internal server error" });
 
-//     }
+    }
 
-// })
+})
 router.delete('/:id', async(req, res) => {
     try {
         const userID = req.params.id;
